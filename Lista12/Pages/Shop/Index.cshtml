@@ -1,0 +1,70 @@
+﻿@page
+@model Lista12.Pages.Shop.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Shop</h1>
+<div style="display: flex;">
+    <div class="cus-m-8 cus-simple-menu" style="width: 10rem; text-align: center;">     
+        <p class="no-margin">
+            <a asp-page="./Index">All</a>
+        </p>
+        @foreach (var item in Model.Categories)
+        {
+            <p class="no-margin">
+                <a asp-page="./Index" asp-route-id="@item.Id">@item.Name</a>
+            </p>
+        }     
+    </div>
+    <div class="m-8" style="width:100%;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Article[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Article[0].Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Article[0].Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Article[0].Category)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Article) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @if (item.ImagePath == null)
+                            {
+                                <img src="/upload/Question_mark.png" width=50 height=50/>
+                            }
+                            else
+                            {
+                                <img src="/@item.ImagePath" width=50 height=50/>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary">Add to cart</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
